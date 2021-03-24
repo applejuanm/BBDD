@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-03-2021 a las 18:22:27
+-- Tiempo de generación: 24-03-2021 a las 09:25:04
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.1.23
 
@@ -149,14 +149,46 @@ INSERT INTO `mesas` (`id`, `serie`, `puestos`, `posicion`, `created`, `modified`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `ordens`
+--
+
+CREATE TABLE `ordens` (
+  `id` int(11) NOT NULL,
+  `total` decimal(6,2) NOT NULL,
+  `cliente` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `dni` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `mesa_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `orden_items`
+--
+
+CREATE TABLE `orden_items` (
+  `id` int(11) NOT NULL,
+  `platillo_id` int(11) NOT NULL,
+  `orden_id` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `subtotal` decimal(6,2) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `pedidos`
 --
 
 CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL,
   `platillo_id` int(11) NOT NULL,
-  `cantidad` decimal(6,2) NOT NULL,
-  `subtotal` decimal(10,0) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `subtotal` decimal(6,2) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -166,9 +198,11 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `platillo_id`, `cantidad`, `subtotal`, `created`, `modified`) VALUES
-(1, 4, '1.00', '25', '2021-03-20 17:38:57', '2021-03-20 17:38:57'),
-(2, 9, '1.00', '16', '2021-03-20 17:50:42', '2021-03-20 17:50:42'),
-(3, 8, '1.00', '12', '2021-03-20 17:50:48', '2021-03-20 17:50:48');
+(14, 7, 1, '15.00', '2021-03-23 17:07:02', '2021-03-24 09:08:35'),
+(15, 4, 1, '25.00', '2021-03-24 08:37:59', '2021-03-24 09:08:35'),
+(16, 8, 5, '60.00', '2021-03-24 08:38:04', '2021-03-24 09:08:35'),
+(17, 10, 1, '8.00', '2021-03-24 08:38:07', '2021-03-24 09:08:35'),
+(18, 9, 5, '80.00', '2021-03-24 08:38:10', '2021-03-24 09:08:35');
 
 -- --------------------------------------------------------
 
@@ -235,6 +269,18 @@ ALTER TABLE `mesas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `ordens`
+--
+ALTER TABLE `ordens`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `orden_items`
+--
+ALTER TABLE `orden_items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
@@ -281,10 +327,22 @@ ALTER TABLE `mesas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `ordens`
+--
+ALTER TABLE `ordens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `orden_items`
+--
+ALTER TABLE `orden_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `platillos`
